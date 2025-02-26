@@ -6,50 +6,109 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:42:13 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/23 06:19:38 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:34:28 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// void	keyboard(mlx_key_data_t keydata, void *param)
+void	keyboard(mlx_key_data_t keydata, void *param)
+{
+	t_game *game;
+
+	game = param;
+
+	//when pressing ESC the window closes
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_close_window(game->mlx);
+
+	//handle w a s d
+	if (keydata.action == MLX_PRESS)
+	{
+		int new_x = game->player_x;
+		int new_y = game->player_y;
+		//updating player position while moving on the map
+		//(x, y) right / up + 1 || left/down -1
+		// W A S D
+		if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP)
+		{
+			new_y -= 1;
+			printf("MOVES : UP\n");
+		}
+		else if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
+		{
+			new_y += 1;
+			printf("MOVES : DOWN\n");
+		}
+		else if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT)
+		{
+			new_x -= 1;
+			printf("MOVES : LEFT\n");
+		}
+		else if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT)
+		{
+			new_x += 1;
+			printf("MOVES : RIGHT\n");
+		}
+
+
+		//up down left right
+		// else if (keydata.key == MLX_KEY_UP)
+		// 	new_y -= 1;
+		// else if (keydata.key == MLX_KEY_DOWN)
+		// 	new_y += 1;
+		// else if (keydata.key == MLX_KEY_LEFT)
+		// 	new_x -= 1;
+		// else if (keydata.key == MLX_KEY_RIGHT)
+		// 	new_x += 1;
+
+
+	        // Check if the new position is valid (not a wall or outside the map)
+		// if (new_x >= 0 && new_x < game->map_width && new_y >= 0 && new_y < game->map_height && game->map[new_y][new_x] != '1')
+		// {
+//             // Update the player's position
+// 			// game->player_x = new_x;
+// 			// game->player_y = new_y;
+// //
+//             // Increment the move counter
+// 			game->moves++;
+// 			printf("Moves: %d\n", game->moves);
+
+//             // Redraw the map to reflect the player's new position
+//             // draw_map(game);
+
+// 		}
+
+	}
+}
+
+
+
+// void keyboard(mlx_key_data_t keydata, void *param)
 // {
-// 	t_game *game;
+//     t_game *game = param;
 
-// 	game = param;
+//     // Close the window if the Escape key is pressed
+//     if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+//         mlx_close_window(game->mlx);
 
-// 	//when pressing ESC the window closes
-// 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-// 		mlx_close_window(game->mlx);
+//     // Handle movement keys
+//     if (keydata.action == MLX_PRESS)
+//     {
+//         int new_x = game->player_x;
+//         int new_y = game->player_y;
 
-// 	//handle w a s d
-// 	if (keydata.action == MLX_PRESS)
-// 	{
-// 		int new_x = game->player_x;
-// 		int new_y = game->player_y;
-// 		//updating player position while moving on the map
-// 		//(x, y) right / up + 1 || left/down -1
-// 		// W A S D
-// 		if (keydata.key == MLX_KEY_W)
-// 			new_y -= 1;
-// 		else if (keydata.key == MLX_KEY_S)
-// 			new_y += 1;
-// 		else if (keydata.key == MLX_KEY_A)
-// 			new_x -= 1;
-// 		else if (keydata.key == MLX_KEY_D)
-// 			new_x += 1;
-// 		//up down left right
-// 		else if (keydata.key == MLX_KEY_UP)
-// 			new_y -= 1;
-// 		else if (keydata.key == MLX_KEY_DOWN)
-// 			new_y += 1;
-// 		else if (keydata.key == MLX_KEY_LEFT)
-// 			new_x -= 1;
-// 		else if (keydata.key == MLX_KEY_RIGHT)
-// 			new_x += 1;
+//         // Update the player's position based on the key pressed
+//         if (keydata.key == MLX_KEY_W) // Move up
+//             new_y -= 1;
+//         else if (keydata.key == MLX_KEY_S) // Move down
+//             new_y += 1;
+//         else if (keydata.key == MLX_KEY_A) // Move left
+//             new_x -= 1;
+//         else if (keydata.key == MLX_KEY_D) // Move right
+//             new_x += 1;
 
-
-// 	        // Check if the new position is valid (not a wall or outside the map)
+//         // Check if the new position is valid (not a wall or outside the map)
 //         if (new_x >= 0 && new_x < game->map_width &&
 //             new_y >= 0 && new_y < game->map_height &&
 //             game->map[new_y][new_x] != '1')
@@ -64,56 +123,9 @@
 
 //             // Redraw the map to reflect the player's new position
 //             // draw_map(game);
-
-// 		}
-
-// 	}
+//         }
+//     }
 // }
-
-
-
-void keyboard(mlx_key_data_t keydata, void *param)
-{
-    t_game *game = param;
-
-    // Close the window if the Escape key is pressed
-    if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-        mlx_close_window(game->mlx);
-
-    // Handle movement keys
-    if (keydata.action == MLX_PRESS)
-    {
-        int new_x = game->player_x;
-        int new_y = game->player_y;
-
-        // Update the player's position based on the key pressed
-        if (keydata.key == MLX_KEY_W) // Move up
-            new_y -= 1;
-        else if (keydata.key == MLX_KEY_S) // Move down
-            new_y += 1;
-        else if (keydata.key == MLX_KEY_A) // Move left
-            new_x -= 1;
-        else if (keydata.key == MLX_KEY_D) // Move right
-            new_x += 1;
-
-        // Check if the new position is valid (not a wall or outside the map)
-        if (new_x >= 0 && new_x < game->map_width &&
-            new_y >= 0 && new_y < game->map_height &&
-            game->map[new_y][new_x] != '1')
-        {
-            // Update the player's position
-            game->player_x = new_x;
-            game->player_y = new_y;
-
-            // Increment the move counter
-            game->moves++;
-            printf("Moves: %d\n", game->moves);
-
-            // Redraw the map to reflect the player's new position
-            // draw_map(game);
-        }
-    }
-}
 
 
 // void draw_map(t_game *game)

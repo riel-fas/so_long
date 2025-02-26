@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:16:15 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/23 06:19:03 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/02/26 09:58:30 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_game
     int     map_height;
     int     player_x;
     int     player_y;
+	mlx_image_t *player_img;
     int     moves;
 } t_game;
 

@@ -1,5 +1,5 @@
 NAME	= so_long
-CFLAGS	= -Wextra -Wall -Werror
+# CFLAGS	= -Wextra -Wall -Werror
 
 # Paths for MLX42
 LIBMLX	= /Users/riel-fas/MLX42
