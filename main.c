@@ -6,79 +6,128 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:19:52 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/02/26 12:52:12 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/01 05:05:01 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// #include "so_long.h"
+
+// int main()
+// {
+// 	t_game game;
+
+
+// 	//map
+// 	load_map(&game, "/Users/riel-fas/Desktop/sso_long/maps/map1.c");
+//     // Print the map (for debugging)
+//     for (int i = 0; i < game.map_height; i++) {
+//         printf("%s\n", game.map[i]);
+//     }
+
+// // Initialize MLX and create a window
+// 	game.mlx = mlx_init(700, 700, "so_long", true);
+
+// 	if (!game.mlx)
+// 		return (EXIT_FAILURE);
+
+// 	game.player_texture = mlx_load_png("/Users/riel-fas/Desktop/frame66.png");
+// 	if (!game.player_texture)
+// 		exit(EXIT_FAILURE);
+
+// 	game.player_img = mlx_texture_to_image(game.mlx, game.player_texture);
+// 	//faillure
+
+// 	mlx_image_to_window(game.mlx, game.player_img, 200, 200);
+
+// 	// game.player_img = mlx_new_image(game.mlx, 50, 50);
+
+
+
+// // Register the key hook
+// // mlx_key_hook(game.mlx, keyboard, &game);
+// 	mlx_loop_hook(game.mlx, keyboard, &game);
+// // Draw the initial map
+// // draw_map(&game);
+
+// // Start the MLX event loop
+// 	mlx_loop(game.mlx);
+
+// // Clean up and exit
+// 	mlx_terminate(game.mlx);
+// 	return (EXIT_SUCCESS);
+// }
+
+
+
 #include "so_long.h"
 
-void work(void *param) {
-	t_game *game = (t_game *) param;
-//wasd
-	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-		game->player_img->instances[0].y -= 3;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		game->player_img->instances[0].x += 3;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		game->player_img->instances[0].x -= 3;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-		game->player_img->instances[0].y += 3;
-// <>
-	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
-		game->player_img->instances[0].y -= 3;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		game->player_img->instances[0].x += 3;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		game->player_img->instances[0].x -= 3;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
-		game->player_img->instances[0].y += 3;
+int main() {
+    t_game game;
 
-	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(game->mlx);
+    // Initialize game state
+    game.collectibles = 0;
+
+    // Load the map
+    load_map(&game, "/Users/riel-fas/Desktop/sso_long/maps/map1.ber");
+
+    // Print the map (for debugging)
+    printf("Map loaded successfully!\n");
+    printf("Map dimensions: %d (width) x %d (height)\n", game.map_width, game.map_height);
+    for (int i = 0; i < game.map_height; i++) {
+        printf("%s\n", game.map[i]);
+    }
+
+    // Initialize MLX and create a window
+    game.mlx = mlx_init(700, 700, "so_long", true);
+    if (!game.mlx) {
+        // Free the map memory before exiting
+        for (int i = 0; i < game.map_height; i++) {
+            free(game.map[i]);
+        }
+        free(game.map);
+        printf("Error: Failed to initialize MLX\n");
+        return (EXIT_FAILURE);
+    }
+
+    // Load player texture
+    game.player_texture = mlx_load_png("/Users/riel-fas/Desktop/frame66.png");
+    if (!game.player_texture) {
+        // Free the map memory and terminate MLX before exiting
+        for (int i = 0; i < game.map_height; i++) {
+            free(game.map[i]);
+        }
+        free(game.map);
+        mlx_terminate(game.mlx);
+        printf("Error: Could not load player texture\n");
+        return (EXIT_FAILURE);
+    }
+
+    // Convert texture to image
+    game.player_img = mlx_texture_to_image(game.mlx, game.player_texture);
+    if (!game.player_img) {
+        // Free the map memory, delete texture, and terminate MLX before exiting
+        for (int i = 0; i < game.map_height; i++) {
+            free(game.map[i]);
+        }
+        free(game.map);
+        mlx_delete_texture(game.player_texture);
+        mlx_terminate(game.mlx);
+        printf("Error: Could not convert texture to image\n");
+        return (EXIT_FAILURE);
+    }
+
+    // Place the player at the starting position
+    mlx_image_to_window(game.mlx, game.player_img, game.player_x * TILE_SIZE, game.player_y * TILE_SIZE);
+
+    // Start the MLX event loop
+    mlx_loop(game.mlx);
+
+    // Clean up and exit
+    for (int i = 0; i < game.map_height; i++) {
+        free(game.map[i]);
+    }
+    free(game.map);
+    mlx_delete_texture(game.player_texture);
+    mlx_terminate(game.mlx);
+    return (EXIT_SUCCESS);
 }
-
-int main()
-{
-t_game game;
-
-// Initialize MLX and create a window
-game.mlx = mlx_init(800, 600, "so_long", true);
-if (!game.mlx)
-    return (EXIT_FAILURE);
-game.player_img = mlx_new_image(game.mlx, 100, 100);
-for (int i = 0; i < 100; i++)
-	for (int k = 0; k < 100;k++)
-		mlx_put_pixel(game.player_img, k,i, 102);
-mlx_image_to_window(game.mlx, game.player_img, 400, 300);
-
-// Register the key hook
-// mlx_key_hook(game.mlx, keyboard, &game);
-mlx_loop_hook(game.mlx, work, &game);
-// Draw the initial map
-// draw_map(&game);
-
-// Start the MLX event loop
-mlx_loop(game.mlx);
-
-// Clean up and exit
-mlx_terminate(game.mlx);
-return (EXIT_SUCCESS);
-}
-
-
-
-
-
-// // Initialize the game state (hardcoded for now)
-// game.map = (char *[]) {
-//     "11111",
-//     "10P01",
-//     "1C0E1",
-//     "11111",
-//     NULL
-// };
-// game.map_width = 5;
-// game.map_height = 4;
-// game.player_x = 2; // Initial player position
-// game.player_y = 1;
-// game.moves = 0;    // Initialize move counter
