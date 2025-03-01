@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 02:44:51 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/01 05:20:04 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/01 06:16:26 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "./get_next_line/get_next_line.h"
 
 
-void	load_map(t_game *game, char *path)
+void	load_map(t_game *game, const char *path)
 {
 	//open map file
 	int		fd;
@@ -104,3 +104,72 @@ void	load_map(t_game *game, char *path)
 	}
 	close (fd);
 }
+
+
+// void	load_map(t_game *game, const char *file_path)
+// {
+//     int fd = open(file_path, O_RDONLY);
+//     if (fd == -1) {
+//         printf("Error: Could not open map file\n");
+//         exit(EXIT_FAILURE);
+//     }
+
+//     char *line;
+//     int width = 0;
+//     int height = 0;
+
+//     // First pass: Calculate map dimensions
+//     while ((line = get_next_line(fd))) {
+//         printf("Line %d: %s\n", height + 1, line); // Debug print
+
+//         int line_length = 0;
+//         while (line[line_length] && line[line_length] != '\n') {
+//             line_length++;
+//         }
+
+//         if (width == 0) {
+//             width = line_length; // First line determines the width
+//         } else if (line_length != width) {
+//             printf("Error: Map is not rectangular (expected width: %d, actual width: %d)\n", width, line_length);
+//             free(line);
+//             close(fd);
+//             exit(EXIT_FAILURE);
+//         }
+
+//         height++;
+//         free(line); // Free the line after processing
+//     }
+
+//     close(fd);
+
+//     // Store the map dimensions in the game struct
+//     game->map_width = width;
+//     game->map_height = height;
+
+//     // Allocate memory for the map
+//     game->map = (char **)malloc(height * sizeof(char *));
+//     for (int i = 0; i < height; i++) {
+//         game->map[i] = (char *)malloc((width + 1) * sizeof(char)); // +1 for null terminator
+//     }
+
+//     // Second pass: Read the map into the 2D array
+//     fd = open(file_path, O_RDONLY);
+//     if (fd == -1) {
+//         printf("Error: Could not open map file\n");
+//         exit(EXIT_FAILURE);
+//     }
+
+//     int row = 0;
+//     while ((line = get_next_line(fd))) {
+//         int col = 0;
+//         while (line[col] && line[col] != '\n') {
+//             game->map[row][col] = line[col];
+//             col++;
+//         }
+//         game->map[row][col] = '\0'; // Null-terminate the row
+//         row++;
+//         free(line); // Free the line after processing
+//     }
+
+//     close(fd);
+// }

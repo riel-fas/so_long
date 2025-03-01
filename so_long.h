@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:16:15 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/01 05:13:00 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/01 06:14:55 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_game
 // void    keyboard(mlx_key_data_t keydata, void *param);
 // void draw_map(t_game *game);
 void keyboard(void *param);
-void	load_map(t_game *game, char *path);
+void	load_map(t_game *game, const char *path);
 
 
 #endif
