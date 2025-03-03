@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:19:52 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/03 16:51:07 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:02:43 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int main()
 	}
 
 // Initialize MLX and create a window
-	game.mlx = mlx_init(1000, 1000, "so_long", true);
+	game.mlx = mlx_init(MAP_WIDTH, MAP_HEIGHT, "so_long", true);
 	if (!game.mlx)
 	{
 		return (EXIT_FAILURE);

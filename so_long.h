@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:16:15 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/03 16:11:19 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:02:09 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 #define TILE_SIZE 64  // or whatever size you want your tiles to be
 
+#define MAP_WIDTH 1000
+#define MAP_HEIGHT 1000
 
 typedef struct s_game
 {
