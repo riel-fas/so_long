@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:19:52 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/03 18:02:43 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:47:39 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,17 @@ int main()
 
 
 	//map
-	load_map(&game, path);
 
-    // Print the map (for debugging) // just to be sure
-	x = 0;
-	while (x < game.map_height)
-	{
-        printf("%s\n", game.map[x]);
-		x++;
-	}
+    // // Print the map (for debugging) // just to be sure
+	// x = 0;
+	// while (x < game.map_height)
+	// {
+    //     printf("%s\n", game.map[x]);
+	// 	x++;
+	// }
 
 // Initialize MLX and create a window
-	game.mlx = mlx_init(MAP_WIDTH, MAP_HEIGHT, "so_long", true);
+	game.mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "so_long", true);
 	if (!game.mlx)
 	{
 		return (EXIT_FAILURE);
@@ -45,8 +44,11 @@ int main()
 		}
 	}
 
+	load_map(&game, path);
 	load_textures_01(&game);
 
+
+/////////////////////////making it on only a funciton with seperated file
 	//load player texture
 	game.player_texture = mlx_load_png(player_texture);
 	if (!game.player_texture)
@@ -70,7 +72,7 @@ int main()
 	////////////////////////////////////////////////////////////
 	// Register the key hook
 	// mlx_key_hook(game.mlx, keyboard, &game);
-	mlx_loop_hook(game.mlx, keyboard, &game);
+	mlx_loop_hook(game.mlx, player_mov, &game);
 	// Draw the initial map
 	// draw_map(&game);
 

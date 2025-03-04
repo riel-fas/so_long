@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:16:15 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/03 18:02:09 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:34:32 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 #define TILE_SIZE 64  // or whatever size you want your tiles to be
 
-#define MAP_WIDTH 1000
-#define MAP_HEIGHT 1000
+#define WINDOW_WIDTH 1000
+#define WINDOW_HEIGHT 1000
 
 typedef struct s_game
 {
@@ -32,6 +32,10 @@ typedef struct s_game
 	int				map_height;
 	int				player_x;
 	int				player_y;
+
+	// int				player_next_x;
+	// int				player_next_y;
+
 	int				collectibles;
 	mlx_image_t		*player_img;
 	mlx_texture_t	*player_texture;
@@ -44,7 +48,9 @@ typedef struct s_game
 
 // void    keyboard(mlx_key_data_t keydata, void *param);
 // void draw_map(t_game *game);
-void keyboard(void *param);
+void player_mov(void *param);
+bool	check_wall(t_game *game);
+
 void	load_map(t_game *game, char *path);
 
 void	load_textures_01(t_game *game);

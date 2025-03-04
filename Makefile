@@ -17,7 +17,7 @@ HEADERS	= -I ./include -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
 LIBS = $(MLX_LIB) -L $(GLFW_LIB) -lglfw -ldl -pthread -lm
 
 # Source files
-SRCS	= main.c map.c keyboard.c
+SRCS	= main.c map.c player_movement.c
 OBJS	= ${SRCS:.c=.o}
 
 # get_next_line
