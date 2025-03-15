@@ -3,21 +3,22 @@ CC		= cc
 CFLAGS	= -Wextra -Wall -Werror -fsanitize=address
 
 # Paths for MLX42
-LIBMLX		= /home/riad/MLX42
+LIBMLX	= /Users/riel-fas/MLX42
 MLX_INCLUDE	= $(LIBMLX)/include/MLX42
-MLX_LIB		= $(LIBMLX)/build/libmlx42.a
+MLX_LIB	= $(LIBMLX)/build/libmlx42.a
 
 # Paths for GLFW
-GLFW_INCLUDE	= /home/linuxbrew/.linuxbrew/include
-GLFW_LIB 		= /home/linuxbrew/.linuxbrew/lib
+GLFW_INCLUDE = /Users/riel-fas/.brew/include
+GLFW_LIB = /Users/riel-fas/.brew/lib
 
 # Include paths
 HEADERS	= -I ./include -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
 
 LIBFT	= libft/libft.a
 
+
 # Libraries
-LIBS	= $(MLX_LIB) -L$(GLFW_LIB) -lglfw -ldl -pthread -lm
+LIBS = $(MLX_LIB) -L $(GLFW_LIB) -lglfw -ldl -pthread -lm
 
 # Source files
 SRCS	= main.c \
@@ -26,32 +27,29 @@ SRCS	= main.c \
 			libft/get_next_line/get_next_line.c \
 			libft/get_next_line/get_next_line_utils.c
 
-OBJS	= $(SRCS:.c=.o)
 
-# Default target
+OBJS	= ${SRCS:.c=.o}
+
+
 all: $(NAME)
 
-# Link the object files to create the executable
 $(NAME): $(OBJS) $(LIBFT)
 		$(CC) $(OBJS) $(LIBFT) $(LIBS) -o $(NAME) $(CFLAGS)
-
 
 $(LIBFT) :
 		make -C libft
 
-# Compile source files into object files
 %.o: %.c
 		$(CC) $(CFLAGS) $(HEADERS) -o $@ -c $<
 
-# Clean up object files
 clean:
 		rm -rf $(OBJS)
+		make clean -C libft
 
-# Clean up everything
 fclean: clean
 		rm -rf $(NAME)
+		make fclean -C libft
 
-# Rebuild everything
-re: fclean all
+re: clean all
 
 .PHONY: all clean fclean re

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:16:15 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/14 16:12:41 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/15 10:19:08 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
-# include "/home/riad/MLX42/include/MLX42/MLX42.h"
+# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+// # include "/home/riad/MLX42/include/MLX42/MLX42.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>

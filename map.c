@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 02:44:51 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/15 10:14:49 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/15 14:33:30 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	load_textures_01(t_game *game)
 	x = 0;
 	y = 0;
 	column = 0;
-	game->map_texture_1 = mlx_load_png("textures/1/pnnnn.png");
+	game->map_texture_1 = mlx_load_png("textures/1/Ice_15_16x16.png");
 	game-> map_image_1 = mlx_texture_to_image(game->mlx, game->map_texture_1);
 
 	game->map_texture_0 = mlx_load_png("textures/0/tile_0048.png");
