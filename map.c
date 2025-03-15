@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 02:44:51 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/03 16:16:19 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/15 10:14:49 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "./get_next_line/get_next_line.h"
+#include "libft/get_next_line/get_next_line.h"
 
 void	load_map(t_game *game, char *path)
 {
