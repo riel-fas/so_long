@@ -16,20 +16,17 @@ HEADERS	= -I ./include -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
 
 LIBFT	= libft/libft.a
 
-
 # Libraries
 LIBS = $(MLX_LIB) -L $(GLFW_LIB) -lglfw -ldl -pthread -lm
 
 # Source files
-SRCS	= main.c \
-			map.c \
-			player_movement.c \
+SRCS	=	so_long_src/main.c \
+			so_long_src/map.c \
+			so_long_src/player_movement.c \
 			libft/get_next_line/get_next_line.c \
 			libft/get_next_line/get_next_line_utils.c
 
-
 OBJS	= ${SRCS:.c=.o}
-
 
 all: $(NAME)
 
