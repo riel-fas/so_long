@@ -6,12 +6,12 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 02:44:51 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/15 14:33:30 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:28:59 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "libft/get_next_line/get_next_line.h"
+#include "../libft/get_next_line/get_next_line.h"
 
 void	load_map(t_game *game, char *path)
 {
@@ -110,10 +110,10 @@ void	load_textures_01(t_game *game)
 	x = 0;
 	y = 0;
 	column = 0;
-	game->map_texture_1 = mlx_load_png("textures/1/Ice_15_16x16.png");
+	game->map_texture_1 = mlx_load_png("textures/1/wall2.png");
 	game-> map_image_1 = mlx_texture_to_image(game->mlx, game->map_texture_1);
 
-	game->map_texture_0 = mlx_load_png("textures/0/tile_0048.png");
+	game->map_texture_0 = mlx_load_png("textures/0/tile_004055.png");
 	game-> map_image_0 = mlx_texture_to_image(game->mlx, game->map_texture_0);
 
 	while (row < game->map_height)
