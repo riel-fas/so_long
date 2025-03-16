@@ -1,23 +1,20 @@
 NAME	= so_long
-CC		= cc
-CFLAGS	= -Wextra -Wall -Werror -fsanitize=address
+CFLAGS	= -Wextra -Wall -Werror
 
 # Paths for MLX42
-LIBMLX	= /home/riad/MLX42
+LIBMLX	= /Users/riel-fas/MLX42
 MLX_INCLUDE	= $(LIBMLX)/include/MLX42
 MLX_LIB	= $(LIBMLX)/build/libmlx42.a
 
 # Paths for GLFW
-GLFW_INCLUDE = /home/linuxbrew/.linuxbrew/include
-GLFW_LIB = /home/linuxbrew/.linuxbrew/lib
+GLFW_INCLUDE = /Users/riel-fas/.brew/include
+GLFW_LIB = /Users/riel-fas/.brew/lib
 
 # Include paths
 HEADERS	= -I ./include -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
 
-LIBFT	= libft/libft.a
-
 # Libraries
-LIBS = $(MLX_LIB) -L $(GLFW_LIB) -lglfw -ldl -pthread -lm -fsanitize=address
+LIBS = $(MLX_LIB) -L $(GLFW_LIB) -lglfw -ldl -pthread -lm
 
 # Source files
 SRCS	=	so_long_src/main.c \
@@ -28,6 +25,7 @@ SRCS	=	so_long_src/main.c \
             libft/get_next_line/get_next_line_utils.c
 
 OBJS	= ${SRCS:.c=.o}
+
 
 all: $(NAME)
 

@@ -17,29 +17,34 @@ HEADERS	= -I ./include -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
 LIBS = $(MLX_LIB) -L $(GLFW_LIB) -lglfw -ldl -pthread -lm
 
 # Source files
-SRCS	= main.c map.c player_movement.c
+SRCS	=	so_long_src/main.c \
+            so_long_src/map.c \
+            so_long_src/player_movement.c \
+            so_long_src/colision.c \
+            libft/get_next_line/get_next_line.c \
+            libft/get_next_line/get_next_line_utils.c
+
 OBJS	= ${SRCS:.c=.o}
 
-# get_next_line
-GNL = Get_Next_Line/get_next_line.c Get_Next_Line/get_next_line_utils.c
-OGNL = ${GNL:.c=.o}
-
-# Combine all object files
-ALL_OBJS = $(OBJS) $(OGNL)
 
 all: $(NAME)
 
-$(NAME): $(ALL_OBJS)
-		$(CC) $(ALL_OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT)
+		$(CC) $(OBJS) $(LIBFT) $(LIBS) -o $(NAME) $(CFLAGS)
+
+$(LIBFT) :
+		make -C libft
 
 %.o: %.c
-		$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+		$(CC) $(CFLAGS) $(HEADERS) -o $@ -c $<
 
 clean:
-		rm -rf $(OBJS) $(OGNL)
+		rm -rf $(OBJS)
+		make clean -C libft
 
 fclean: clean
 		rm -rf $(NAME)
+		make fclean -C libft
 
 re: clean all
 
