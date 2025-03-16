@@ -3,13 +3,13 @@ CC		= cc
 CFLAGS	= -Wextra -Wall -Werror -fsanitize=address
 
 # Paths for MLX42
-LIBMLX	= /Users/riel-fas/MLX42
+LIBMLX	= /home/riad/MLX42
 MLX_INCLUDE	= $(LIBMLX)/include/MLX42
 MLX_LIB	= $(LIBMLX)/build/libmlx42.a
 
 # Paths for GLFW
-GLFW_INCLUDE = /Users/riel-fas/.brew/include
-GLFW_LIB = /Users/riel-fas/.brew/lib
+GLFW_INCLUDE = /home/linuxbrew/.linuxbrew/include
+GLFW_LIB = /home/linuxbrew/.linuxbrew/lib
 
 # Include paths
 HEADERS	= -I ./include -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
@@ -17,14 +17,15 @@ HEADERS	= -I ./include -I $(MLX_INCLUDE) -I $(GLFW_INCLUDE)
 LIBFT	= libft/libft.a
 
 # Libraries
-LIBS = $(MLX_LIB) -L $(GLFW_LIB) -lglfw -ldl -pthread -lm
+LIBS = $(MLX_LIB) -L $(GLFW_LIB) -lglfw -ldl -pthread -lm -fsanitize=address
 
 # Source files
 SRCS	=	so_long_src/main.c \
-			so_long_src/map.c \
-			so_long_src/player_movement.c \
-			libft/get_next_line/get_next_line.c \
-			libft/get_next_line/get_next_line_utils.c
+            so_long_src/map.c \
+            so_long_src/player_movement.c \
+            so_long_src/colision.c \
+            libft/get_next_line/get_next_line.c \
+            libft/get_next_line/get_next_line_utils.c
 
 OBJS	= ${SRCS:.c=.o}
 

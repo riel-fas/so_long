@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:42:13 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/04 15:47:00 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/16 10:17:41 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,37 +35,37 @@
 // 	{
 // 		if (check_wall(&game))
 // 		{
-// 			game->player_img->instances[0].y -= 3;
+// 			game->player_img->instances->y -= 3;
 // 		}
-// 		// game->player_next_y = game->player_img->instances[0].y - 3;
+// 		// game->player_next_y = game->player_img->instances->y - 3;
 // 	}
 // 	if (mlx_is_key_down(game->mlx, MLX_KEY_D) && check_wall(&game))
 // 	{
-// 		game->player_img->instances[0].x += 3;
-// 		// game->player_next_x = game->player_img->instances[0].x + 3;
+// 		game->player_img->instances->x += 3;
+// 		// game->player_next_x = game->player_img->instances->x + 3;
 // 	}
 // 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 // 	{
-// 		game->player_img->instances[0].x -= 3;
-// 		// game->player_next_x = game->player_img->instances[0].x - 3;
+// 		game->player_img->instances->x -= 3;
+// 		// game->player_next_x = game->player_img->instances->x - 3;
 // 	}
 // 	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 // 	{
-// 		game->player_img->instances[0].y += 3;
-// 		// game->player_next_y = game->player_img->instances[0].y + 3;
+// 		game->player_img->instances->y += 3;
+// 		// game->player_next_y = game->player_img->instances->y + 3;
 // 	}
 // // <>
 // 	// if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
 // 	// {
-// 		// game->player_img->instances[0].y -= 3;
+// 		// game->player_img->instances->y -= 3;
 // 		// game->player_next_x -= 6;
 // 	// }
 // 	// if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-// 		// game->player_img->instances[0].x += 3;
+// 		// game->player_img->instances->x += 3;
 // 	// if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-// 		// game->player_img->instances[0].x -= 3;
+// 		// game->player_img->instances->x -= 3;
 // 	// if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
-// 		// game->player_img->instances[0].y += 3;
+// 		// game->player_img->instances->y += 3;
 // //
 // 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 // 		mlx_close_window(game->mlx);
@@ -98,68 +98,77 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void player_mov(void *param)
 {
-    t_game *game = (t_game *) param;
+	t_game *game = (t_game *) param;
+
+
+	int next_x;
+	int next_y;
+
+
 
     // Debug: Print a message when the function is called
     printf("Keyboard function called\n");
 
     // WASD movement
-    if (mlx_is_key_down(game->mlx, MLX_KEY_W)) {
+    if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+	{
         printf("W key pressed\n");
-        game->player_img->instances[0].y -= 3;
+        next_y = game->player_img->instances->y -3;
+		if (check_wall(game, game->player_img->instances->x, next_y))
+			game->player_img->instances->y = next_y;
     }
-    if (mlx_is_key_down(game->mlx, MLX_KEY_D)) {
+    if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+	{
         printf("D key pressed\n");
-        game->player_img->instances[0].x += 3;
+        next_x = game->player_img->instances->x + 3;
+		if (check_wall(game, next_x, game->player_img->instances->y))
+			game->player_img->instances->x = next_x;
     }
-    if (mlx_is_key_down(game->mlx, MLX_KEY_A)) {
+    if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+	{
         printf("A key pressed\n");
-        game->player_img->instances[0].x -= 3;
+        next_x = game->player_img->instances->x - 3;
+		if (check_wall(game, next_x, game->player_img->instances->y))
+			game->player_img->instances->x = next_x;
     }
-    if (mlx_is_key_down(game->mlx, MLX_KEY_S)) {
+    if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+	{
         printf("S key pressed\n");
-        game->player_img->instances[0].y += 3;
+		next_y = game->player_img->instances->y + 3;
+		if (check_wall(game, game->player_img->instances->x, next_y))
+			next_y = game->player_img->instances->y;
     }
 
     // Arrow keys movement
-    if (mlx_is_key_down(game->mlx, MLX_KEY_UP)) {
+    if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
+	{
         printf("UP key pressed\n");
-        game->player_img->instances[0].y -= 3;
+        next_y = game->player_img->instances->y - 3;
+		if (check_wall(game, game->player_img->instances->x, next_y))
+			next_y = game->player_img->instances->y;
     }
-    if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)) {
+    if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+	{
         printf("RIGHT key pressed\n");
-        game->player_img->instances[0].x += 3;
+        next_x = game->player_img->instances->x + 3;
+		if (check_wall(game, next_x, game->player_img->instances->y))
+			next_x = game->player_img->instances->x;
     }
-    if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT)) {
+    if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+	{
         printf("LEFT key pressed\n");
-        game->player_img->instances[0].x -= 3;
+        next_x = game->player_img->instances->x - 3;
+		if (check_wall(game, next_x, game->player_img->instances->y))
+			next_x = game->player_img->instances->x;
     }
-    if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN)) {
+    if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+	{
         printf("DOWN key pressed\n");
-        game->player_img->instances[0].y += 3;
+        next_y = game->player_img->instances->y + 3;
+		if (check_wall(game, game->player_img->instances->x, next_y))
+			next_y = game->player_img->instances->y;
     }
 
     // Close window on ESC
