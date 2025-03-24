@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_in_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:33:11 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/23 09:00:59 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:27:41 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	load_assets(t_game *game)
 
 void	init_move_count_text(t_game *game)
 {
-	game->move_count_img = mlx_put_string(game->mlx, "MOVES : 0", 10, 10);
-	if (!game->move_count_img)
+	game->move_counter_img = mlx_put_string(game->mlx, "MOVES : 0", 10, 10);
+	if (!game->move_counter_img)
 		exit_with_error("ERROR: Failed to create move count text.");
 }

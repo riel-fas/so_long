@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:24:15 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/24 15:50:01 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:26:42 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_game(t_game *game)
 	game->wall_count = 0;
 	game->collectible_count = 0;
 	game->exit_count = 0;
+	game->move_counter_img = NULL;
 	load_assets(game);
 	game->moves = 0;
 	render_map(game);
