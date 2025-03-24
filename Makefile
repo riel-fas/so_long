@@ -2,7 +2,7 @@ NAME					= so_long
 BONUS					= so_long_bonus
 
 CC						= cc
-CFLAGS					= -Wextra -Wall -Werror -fsanitize=address
+CFLAGS					= -Wextra -Wall -Werror
 
 LIBMLX					= /Users/riel-fas/MLX42
 MLX_INCLUDE				= $(LIBMLX)/include/MLX42

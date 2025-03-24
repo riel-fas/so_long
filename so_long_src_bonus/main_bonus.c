@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:24:15 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/23 08:41:38 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:50:01 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	init_game(t_game *game)
 	load_assets(game);
 	game->moves = 0;
 	render_map(game);
-	init_move_count_text(game);
 	mlx_loop_hook(game->mlx, game_loop, game);
 }
 

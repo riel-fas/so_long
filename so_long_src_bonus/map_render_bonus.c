@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:22:25 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/22 16:00:46 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:56:30 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	render_map_elements(t_game *game, int x, int y)
 		mlx_image_to_window(game->mlx, game->collectible_img,
 			x * TILE_SIZE, y * TILE_SIZE);
 	else if (game->map.grid[y][x] == 'E')
-		mlx_image_to_window(game->mlx, game->exit_img,
-			x * TILE_SIZE, y * TILE_SIZE);
+		game->exit_instance = mlx_image_to_window(game->mlx, game->exit_img,
+				x * TILE_SIZE, y * TILE_SIZE);
 	else if (game->map.grid[y][x] == 'P')
-		game->player_instance = mlx_image_to_window(game->mlx,
-				game->player_img, x * TILE_SIZE, y * TILE_SIZE);
+		game->player_instance = mlx_image_to_window(game->mlx, game->player_img,
+				x * TILE_SIZE, y * TILE_SIZE);
 	else if (game->map.grid[y][x] == 'X')
 		mlx_image_to_window(game->mlx, game->enemy_img,
 			x * TILE_SIZE, y * TILE_SIZE);
@@ -80,4 +80,7 @@ void	update_render_map(t_game *game)
 	game->player_img->instances[0].x = game->map.player_x * TILE_SIZE;
 	game->player_img->instances[0].y = game->map.player_y * TILE_SIZE;
 	update_collectibles(game);
+	if (game->exit_instance >= 0
+		&& game->exit_instance < (int)game->exit_img->count)
+		game->exit_img->instances[game->exit_instance].enabled = true;
 }

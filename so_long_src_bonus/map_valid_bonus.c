@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:44:18 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/22 11:25:09 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:55:25 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ static void	count_element(t_game *game, int i, int j)
 		game->map.player_y = i;
 	}
 	else if (game->map.grid[i][j] == 'E')
+	{
 		game->map.exit++;
+		game->map.exit_x = j;
+		game->map.exit_y = i;
+	}
 	else if (game->map.grid[i][j] == 'C')
 		game->map.collectibles++;
 }
@@ -41,7 +45,7 @@ static int	check_characters(t_game *game)
 			count_element(game, i, j);
 			if (game->map.grid[i][j] != 'P' && game->map.grid[i][j] != 'E'
 				&& game->map.grid[i][j] != 'C' && game->map.grid[i][j] != '0'
-				&& game->map.grid[i][j] != '1' && game->map.grid[i][j] != 'X')
+				&& game->map.grid[i][j] != '1')
 				return (0);
 			j++;
 		}
@@ -106,5 +110,6 @@ int	validate_map(t_game *game)
 		write(2, "Error\nInvalid path in map\n", 26);
 		return (0);
 	}
+	game->map.grid[game->map.exit_y][game->map.exit_x] = '0';
 	return (1);
 }

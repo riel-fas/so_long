@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:18:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/24 10:13:20 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:57:17 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_map
 	int				player;
 	int				player_x;
 	int				player_y;
+	int				exit_x;
+	int				exit_y;
 }		t_map;
 
 typedef struct s_game
@@ -70,6 +72,9 @@ typedef struct s_game
 	int				wall_count;
 	int				collectible_count;
 	int				exit_count;
+	int				exit_instance;
+	// int				exit_x;
+	// int				exit_y;
 	mlx_image_t		*move_count_img;
 }		t_game;
 

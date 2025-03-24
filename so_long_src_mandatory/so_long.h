@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:18:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/24 14:18:29 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:57:06 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ typedef struct s_game
 	int				collectible_count;
 	int				exit_count;
 	int				exit_instance;
-	int				exit_x;
-	int				exit_y;
+	// int				exit_x;
+	// int				exit_y;
 }		t_game;
 
 int			parse_map(t_game *game, char *map_path);
