@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_render.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:22:25 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/24 12:03:25 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:54:35 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void render_map_elements(t_game *game, int x, int y)
         mlx_image_to_window(game->mlx, game->collectible_img, x * TILE_SIZE, y * TILE_SIZE);
     else if (game->map.grid[y][x] == 'E')
     {
-        // Always render exit, but behind player if player is on it
-        if (!(game->map.player_x == x && game->map.player_y == y))
-            mlx_image_to_window(game->mlx, game->exit_img, x * TILE_SIZE, y * TILE_SIZE);
+        // Store the exit instance when creating it
+        game->exit_instance = mlx_image_to_window(game->mlx, game->exit_img,
+                               x * TILE_SIZE, y * TILE_SIZE);
     }
     else if (game->map.grid[y][x] == 'P')
         game->player_instance = mlx_image_to_window(game->mlx,

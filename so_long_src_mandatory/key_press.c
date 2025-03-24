@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:38:04 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/24 12:42:41 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:57:34 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,19 @@ static int handle_tile(t_game *game, int new_x, int new_y)
         ft_printf("Collectibles: %d/%d\n", game->map.collected, game->map.collectibles);
 
         // Reveal the exit if all collectibles are collected
-        if (game->map.collected == game->map.collectibles)
-        {
-            game->map.grid[game->map.exit_y][game->map.exit_x] = 'E';
-            update_render_map(game);
-            ft_printf("Exit is now visible!\n");
-        }
+// Reveal the exit if all collectibles are collected
+		if (game->map.collected == game->map.collectibles)
+		{
+    		game->map.grid[game->map.exit_y][game->map.exit_x] = 'E';
+
+		    // Create the exit image instance when revealing the exit
+    		game->exit_instance = mlx_image_to_window(game->mlx, game->exit_img,
+                          game->map.exit_x * TILE_SIZE,
+                          game->map.exit_y * TILE_SIZE);
+
+    		update_render_map(game);
+    		ft_printf("Exit is now visible!\n");
+		}
     }
     // Check if player is at exit position and has collected all collectibles
     else if (new_x == game->map.exit_x && new_y == game->map.exit_y &&
