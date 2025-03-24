@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:44:18 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/24 11:21:52 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:41:50 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-static void    count_element(t_game *game, int i, int j)
+// In the count_element function in map_valid.c
+static void count_element(t_game *game, int i, int j)
 {
     if (game->map.grid[i][j] == 'P')
     {
@@ -23,8 +23,10 @@ static void    count_element(t_game *game, int i, int j)
     else if (game->map.grid[i][j] == 'E')
     {
         game->map.exit++;
-        game->exit_x = j;    // Add this
-        game->exit_y = i;    // Add this
+        game->map.exit_x = j;
+        game->map.exit_y = i;
+        // Make exit invisible initially by replacing with floor
+        game->map.grid[i][j] = '0';
     }
     else if (game->map.grid[i][j] == 'C')
         game->map.collectibles++;

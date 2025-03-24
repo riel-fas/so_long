@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:38:04 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/24 12:02:49 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:42:41 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,74 @@ static int	is_valid_move(t_game *game, int new_x, int new_y)
 		return (0);
 	return (1);
 }
-
+// Update the handle_tile function
 static int handle_tile(t_game *game, int new_x, int new_y)
 {
+    // Check if we're stepping on a collectible
     if (game->map.grid[new_y][new_x] == 'C')
     {
         game->map.collected++;
-        game->map.grid[new_y][new_x] = '0';  // Remove collectible
+        game->map.grid[new_y][new_x] = '0'; // Remove collectible
         update_render_map(game);
         ft_printf("Collectibles: %d/%d\n", game->map.collected, game->map.collectibles);
-    }
-    else if (game->map.grid[new_y][new_x] == 'E')
-    {
+
+        // Reveal the exit if all collectibles are collected
         if (game->map.collected == game->map.collectibles)
         {
-            ft_printf("You win! Moves: %d\n", game->moves + 1);
-            mlx_close_window(game->mlx);
-            return (0);
-        }
-        else
-        {
-            // Allow player to pass through exit but don't end game
-            return (1);
+            game->map.grid[game->map.exit_y][game->map.exit_x] = 'E';
+            update_render_map(game);
+            ft_printf("Exit is now visible!\n");
         }
     }
+    // Check if player is at exit position and has collected all collectibles
+    else if (new_x == game->map.exit_x && new_y == game->map.exit_y &&
+             game->map.collected == game->map.collectibles &&
+             game->map.grid[new_y][new_x] == 'E')
+    {
+        ft_printf("You win! Moves: %d\n", game->moves + 1);
+        mlx_close_window(game->mlx);
+        return (0);
+    }
     return (1);
+}
+
+// Update the move_player function
+void move_player(t_game *game, int dx, int dy)
+{
+    int new_x = game->map.player_x + dx;
+    int new_y = game->map.player_y + dy;
+
+    if (!is_valid_move(game, new_x, new_y))
+        return;
+
+    if (!handle_tile(game, new_x, new_y))
+        return;
+
+    // Clear the previous player position
+    game->map.grid[game->map.player_y][game->map.player_x] = '0';
+
+    // If we just left the exit position, restore exit if needed
+    if (game->map.player_x == game->map.exit_x &&
+        game->map.player_y == game->map.exit_y &&
+        game->map.collected == game->map.collectibles)
+    {
+        game->map.grid[game->map.exit_y][game->map.exit_x] = 'E';
+    }
+
+    // Update player position
+    game->map.player_x = new_x;
+    game->map.player_y = new_y;
+
+    // Set the new player position in the grid, unless it's the exit
+    if (!(new_x == game->map.exit_x && new_y == game->map.exit_y &&
+          game->map.collected == game->map.collectibles))
+    {
+        game->map.grid[new_y][new_x] = 'P';
+    }
+
+    game->moves++;
+    update_render_map(game);
+    ft_printf("Moves: %d\n", game->moves);
 }
 
 // static int	handle_tile(t_game *game, int new_x, int new_y)
@@ -88,27 +131,41 @@ static int handle_tile(t_game *game, int new_x, int new_y)
 // 	ft_printf("Moves: %d\n", game->moves);
 // }
 
-void move_player(t_game *game, int dx, int dy)
-{
-    int new_x = game->map.player_x + dx;
-    int new_y = game->map.player_y + dy;
+// void move_player(t_game *game, int dx, int dy)
+// {
+//     int new_x = game->map.player_x + dx;
+//     int new_y = game->map.player_y + dy;
 
-    if (!is_valid_move(game, new_x, new_y))
-        return;
-    if (!handle_tile(game, new_x, new_y))
-        return;
+//     if (!is_valid_move(game, new_x, new_y))
+//         return;
 
-    // Only overwrite current position if it's not the exit
-    if (game->map.grid[game->map.player_y][game->map.player_x] != 'E')
-        game->map.grid[game->map.player_y][game->map.player_x] = '0';
+//     if (!handle_tile(game, new_x, new_y))
+//         return;
 
-    game->map.player_x = new_x;
-    game->map.player_y = new_y;
-    game->map.grid[new_y][new_x] = 'P';
-    game->moves++;
-    update_render_map(game);
-    ft_printf("Moves: %d\n", game->moves);
-}
+//     // Restore the exit tile if the player moves off it
+//     if (game->map.grid[game->map.player_y][game->map.player_x] == 'P' &&
+//         game->map.exit_x == game->map.player_x &&
+//         game->map.exit_y == game->map.player_y &&
+//         game->map.collected == game->map.collectibles)
+//     {
+//         game->map.grid[game->map.player_y][game->map.player_x] = 'E';
+//     }
+//     else
+//     {
+//         game->map.grid[game->map.player_y][game->map.player_x] = '0';
+//     }
+
+//     game->map.player_x = new_x;
+//     game->map.player_y = new_y;
+
+//     // Ensure the player tile is updated
+//     if (game->map.grid[new_y][new_x] != 'E')
+//         game->map.grid[new_y][new_x] = 'P';
+
+//     game->moves++;
+//     update_render_map(game);
+//     ft_printf("Moves: %d\n", game->moves);
+// }
 
 
 void	handle_keypress(mlx_key_data_t keydata, void *param)

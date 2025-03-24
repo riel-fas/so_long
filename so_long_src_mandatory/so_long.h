@@ -13,8 +13,8 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
-// #include "/home/riad/MLX42/include/MLX42/MLX42.h"
+// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+#include "/home/riad/MLX42/include/MLX42/MLX42.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -72,7 +72,7 @@ typedef struct s_game
 	int				exit_count;
 	int				exit_instance;
 	int				exit_x;
-	int				exit_y;                                                                                                              
+	int				exit_y;
 }		t_game;
 
 int			parse_map(t_game *game, char *map_path);
