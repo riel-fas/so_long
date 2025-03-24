@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:18:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/22 16:07:36 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:13:20 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ void		copy_map(t_game *game, char **temp_map);
 char		**create_temp_map(t_game *game);
 int			check_path(t_game *game);
 void		flood_fill(char **map, int x, int y, int *count);
+int			map_ber(char *map_path);
 
 #endif

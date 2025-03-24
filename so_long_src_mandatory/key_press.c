@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:38:04 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/23 08:37:40 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:02:49 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,47 +20,96 @@ static int	is_valid_move(t_game *game, int new_x, int new_y)
 	return (1);
 }
 
-static int	handle_tile(t_game *game, int new_x, int new_y)
+static int handle_tile(t_game *game, int new_x, int new_y)
 {
-	if (game->map.grid[new_y][new_x] == 'C')
-	{
-		game->map.collected++;
-		game->map.grid[new_y][new_x] = '0';
-		update_render_map(game);
-	}
-	else if (game->map.grid[new_y][new_x] == 'E')
-	{
-		if (game->map.collected == game->map.collectibles)
-		{
-			ft_printf("You win! Moves: %d\n", game->moves + 1);
-			mlx_close_window(game->mlx);
-			return (0);
-		}
-		else
-			return (0);
-	}
-	return (1);
+    if (game->map.grid[new_y][new_x] == 'C')
+    {
+        game->map.collected++;
+        game->map.grid[new_y][new_x] = '0';  // Remove collectible
+        update_render_map(game);
+        ft_printf("Collectibles: %d/%d\n", game->map.collected, game->map.collectibles);
+    }
+    else if (game->map.grid[new_y][new_x] == 'E')
+    {
+        if (game->map.collected == game->map.collectibles)
+        {
+            ft_printf("You win! Moves: %d\n", game->moves + 1);
+            mlx_close_window(game->mlx);
+            return (0);
+        }
+        else
+        {
+            // Allow player to pass through exit but don't end game
+            return (1);
+        }
+    }
+    return (1);
 }
 
-void	move_player(t_game *game, int dx, int dy)
-{
-	int	new_x;
-	int	new_y;
+// static int	handle_tile(t_game *game, int new_x, int new_y)
+// {
+// 	if (game->map.grid[new_y][new_x] == 'C')
+// 	{
+// 		game->map.collected++;
+// 		game->map.grid[new_y][new_x] = '0';
+// 		update_render_map(game);
+// 	}
+// 	else if (game->map.grid[new_y][new_x] == 'E')
+// 	{
+// 		if (game->map.collected == game->map.collectibles)
+// 		{
+// 			ft_printf("You win! Moves: %d\n", game->moves + 1);
+// 			mlx_close_window(game->mlx);
+// 			return (0);
+// 		}
+// 		else
+// 			return (0);
+// 	}
+// 	return (1);
+// }
 
-	new_x = game->map.player_x + dx;
-	new_y = game->map.player_y + dy;
-	if (!is_valid_move(game, new_x, new_y))
-		return ;
-	if (!handle_tile(game, new_x, new_y))
-		return ;
-	game->map.grid[game->map.player_y][game->map.player_x] = '0';
-	game->map.player_x = new_x;
-	game->map.player_y = new_y;
-	game->map.grid[new_y][new_x] = 'P';
-	game->moves++;
-	update_render_map(game);
-	ft_printf("Moves: %d\n", game->moves);
+// void	move_player(t_game *game, int dx, int dy)
+// {
+// 	int	new_x;
+// 	int	new_y;
+
+// 	new_x = game->map.player_x + dx;
+// 	new_y = game->map.player_y + dy;
+// 	if (!is_valid_move(game, new_x, new_y))
+// 		return ;
+// 	if (!handle_tile(game, new_x, new_y))
+// 		return ;
+// 	game->map.grid[game->map.player_y][game->map.player_x] = '0';
+// 	game->map.player_x = new_x;
+// 	game->map.player_y = new_y;
+// 	game->map.grid[new_y][new_x] = 'P';
+// 	game->moves++;
+// 	update_render_map(game);
+// 	ft_printf("Moves: %d\n", game->moves);
+// }
+
+void move_player(t_game *game, int dx, int dy)
+{
+    int new_x = game->map.player_x + dx;
+    int new_y = game->map.player_y + dy;
+
+    if (!is_valid_move(game, new_x, new_y))
+        return;
+    if (!handle_tile(game, new_x, new_y))
+        return;
+
+    // Only overwrite current position if it's not the exit
+    if (game->map.grid[game->map.player_y][game->map.player_x] != 'E')
+        game->map.grid[game->map.player_y][game->map.player_x] = '0';
+
+    game->map.player_x = new_x;
+    game->map.player_y = new_y;
+    game->map.grid[new_y][new_x] = 'P';
+    game->moves++;
+    update_render_map(game);
+    ft_printf("Moves: %d\n", game->moves);
 }
+
 
 void	handle_keypress(mlx_key_data_t keydata, void *param)
 {

@@ -6,25 +6,43 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:44:18 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/20 12:55:09 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:21:52 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	count_element(t_game *game, int i, int j)
+static void    count_element(t_game *game, int i, int j)
 {
-	if (game->map.grid[i][j] == 'P')
-	{
-		game->map.player++;
-		game->map.player_x = j;
-		game->map.player_y = i;
-	}
-	else if (game->map.grid[i][j] == 'E')
-		game->map.exit++;
-	else if (game->map.grid[i][j] == 'C')
-		game->map.collectibles++;
+    if (game->map.grid[i][j] == 'P')
+    {
+        game->map.player++;
+        game->map.player_x = j;
+        game->map.player_y = i;
+    }
+    else if (game->map.grid[i][j] == 'E')
+    {
+        game->map.exit++;
+        game->exit_x = j;    // Add this
+        game->exit_y = i;    // Add this
+    }
+    else if (game->map.grid[i][j] == 'C')
+        game->map.collectibles++;
 }
+
+// static void	count_element(t_game *game, int i, int j)
+// {
+// 	if (game->map.grid[i][j] == 'P')
+// 	{
+// 		game->map.player++;
+// 		game->map.player_x = j;
+// 		game->map.player_y = i;
+// 	}
+// 	else if (game->map.grid[i][j] == 'E')
+// 		game->map.exit++;
+// 	else if (game->map.grid[i][j] == 'C')
+// 		game->map.collectibles++;
+// }
 
 static int	check_characters(t_game *game)
 {

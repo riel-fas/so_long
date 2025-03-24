@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:49:02 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/22 15:10:05 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:13:39 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,22 @@ char	*ft_strjoin_bonus(char *s1, char *s2)
 	ft_strlcat(copy, s2, len);
 	free(s2);
 	return (copy);
+}
+
+int		map_ber(char *map_path)
+{
+	int i;
+
+	i = 0;
+	if (!(ft_strlen(map_path) > 4))
+		return 0;
+	while (map_path[i])
+		i++;
+	i--;
+	if (!(map_path[i] == 'r' && map_path[i-1] == 'e' && map_path[i-2] == 'b' && map_path[i-3] == '.'))
+	{
+		write(2, "FILE IS NOT .ber\n", 17);
+		return 0;
+	}
+	return (1);
 }

@@ -6,26 +6,43 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:22:25 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/20 12:19:23 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 12:03:25 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	render_map_elements(t_game *game, int x, int y)
+// void	render_map_elements(t_game *game, int x, int y)
+// {
+// 	if (game->map.grid[y][x] == '1')
+// 		mlx_image_to_window(game->mlx, game->wall_img,
+// 			x * TILE_SIZE, y * TILE_SIZE);
+// 	else if (game->map.grid[y][x] == 'C')
+// 		mlx_image_to_window(game->mlx, game->collectible_img,
+// 			x * TILE_SIZE, y * TILE_SIZE);
+// 	else if (game->map.grid[y][x] == 'E')
+// 		mlx_image_to_window(game->mlx, game->exit_img,
+// 			x * TILE_SIZE, y * TILE_SIZE);
+// 	else if (game->map.grid[y][x] == 'P')
+// 		game->player_instance = mlx_image_to_window(game->mlx,
+// 				game->player_img, x * TILE_SIZE, y * TILE_SIZE);
+// }
+
+void render_map_elements(t_game *game, int x, int y)
 {
-	if (game->map.grid[y][x] == '1')
-		mlx_image_to_window(game->mlx, game->wall_img,
-			x * TILE_SIZE, y * TILE_SIZE);
-	else if (game->map.grid[y][x] == 'C')
-		mlx_image_to_window(game->mlx, game->collectible_img,
-			x * TILE_SIZE, y * TILE_SIZE);
-	else if (game->map.grid[y][x] == 'E')
-		mlx_image_to_window(game->mlx, game->exit_img,
-			x * TILE_SIZE, y * TILE_SIZE);
-	else if (game->map.grid[y][x] == 'P')
-		game->player_instance = mlx_image_to_window(game->mlx,
-				game->player_img, x * TILE_SIZE, y * TILE_SIZE);
+    if (game->map.grid[y][x] == '1')
+        mlx_image_to_window(game->mlx, game->wall_img, x * TILE_SIZE, y * TILE_SIZE);
+    else if (game->map.grid[y][x] == 'C')
+        mlx_image_to_window(game->mlx, game->collectible_img, x * TILE_SIZE, y * TILE_SIZE);
+    else if (game->map.grid[y][x] == 'E')
+    {
+        // Always render exit, but behind player if player is on it
+        if (!(game->map.player_x == x && game->map.player_y == y))
+            mlx_image_to_window(game->mlx, game->exit_img, x * TILE_SIZE, y * TILE_SIZE);
+    }
+    else if (game->map.grid[y][x] == 'P')
+        game->player_instance = mlx_image_to_window(game->mlx,
+                game->player_img, x * TILE_SIZE, y * TILE_SIZE);
 }
 
 static void	place_collectible(t_game *game, int x, int y)
@@ -72,9 +89,16 @@ static void	update_collectibles(t_game *game)
 	}
 }
 
-void	update_render_map(t_game *game)
+void update_render_map(t_game *game)
 {
-	game->player_img->instances[0].x = game->map.player_x * TILE_SIZE;
-	game->player_img->instances[0].y = game->map.player_y * TILE_SIZE;
-	update_collectibles(game);
+    game->player_img->instances[0].x = game->map.player_x * TILE_SIZE;
+    game->player_img->instances[0].y = game->map.player_y * TILE_SIZE;
+    update_collectibles(game);
+
+    // Ensure exit is visible when player moves off it
+    if (game->exit_instance >= 0 && game->exit_instance < (int)game->exit_img->count)
+    {
+        game->exit_img->instances[game->exit_instance].enabled = true;
+    }
 }
+

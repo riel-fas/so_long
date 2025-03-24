@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:18:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/23 08:48:47 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:17:44 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_map
 	int				player;
 	int				player_x;
 	int				player_y;
+	int				exit_x;
+	int				exit_y;
 }		t_map;
 
 typedef struct s_game
@@ -68,6 +70,9 @@ typedef struct s_game
 	int				wall_count;
 	int				collectible_count;
 	int				exit_count;
+	int				exit_instance;
+	int				exit_x;
+	int				exit_y;                                                                                                              
 }		t_game;
 
 int			parse_map(t_game *game, char *map_path);
@@ -90,5 +95,7 @@ void		copy_map(t_game *game, char **temp_map);
 char		**create_temp_map(t_game *game);
 int			check_path(t_game *game);
 void		flood_fill(char **map, int x, int y, int *count);
+int			map_ber(char *map_path);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:37:55 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/21 15:11:34 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 10:14:26 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ static int	handle_map_errors(t_game *game, int error_code)
 
 int	parse_map(t_game *game, char *map_path)
 {
+	if (!map_ber(map_path))
+		return (0);
 	if (!init_map_data(game))
 		return (0);
 	if (!map_dimensions(game, map_path))
