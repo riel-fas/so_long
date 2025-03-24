@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:38:04 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/23 08:38:00 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:37:55 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,21 @@ static int	handle_tile(t_game *game, int new_x, int new_y)
 		game->map.collected++;
 		game->map.grid[new_y][new_x] = '0';
 		update_render_map(game);
-	}
-	else if (game->map.grid[new_y][new_x] == 'E')
-	{
 		if (game->map.collected == game->map.collectibles)
 		{
-			ft_printf("You win! Moves: %d\n", game->moves + 1);
-			mlx_close_window(game->mlx);
-			return (0);
+			game->map.grid[game->map.exit_y][game->map.exit_x] = 'E';
+			game->exit_instance = mlx_image_to_window(game->mlx, game->exit_img,
+					game->map.exit_x * TILE_SIZE, game->map.exit_y * TILE_SIZE);
+			update_render_map(game);
 		}
-		else
-			return (0);
+	}
+	else if (new_x == game->map.exit_x && new_y == game->map.exit_y
+		&& game->map.collected == game->map.collectibles
+		&& game->map.grid[new_y][new_x] == 'E')
+	{
+		ft_printf("SSAAALLLLIIIIINNNNNNAAAAAAA! Moves: %d\n", game->moves + 1);
+		mlx_close_window(game->mlx);
+		return (0);
 	}
 	return (1);
 }

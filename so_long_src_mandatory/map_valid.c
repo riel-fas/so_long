@@ -3,50 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:44:18 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/24 13:49:18 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:29:43 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-// In the count_element function in map_valid.c
-// Fix the count_element function to not change exit to '0' yet
-static void count_element(t_game *game, int i, int j)
+
+static void	count_element(t_game *game, int i, int j)
 {
-    if (game->map.grid[i][j] == 'P')
-    {
-        game->map.player++;
-        game->map.player_x = j;
-        game->map.player_y = i;
-    }
-    else if (game->map.grid[i][j] == 'E')
-    {
-        game->map.exit++;
-        game->map.exit_x = j;
-        game->map.exit_y = i;
-        // Don't change to '0' yet - we need to validate path first
-    }
-    else if (game->map.grid[i][j] == 'C')
-        game->map.collectibles++;
+	if (game->map.grid[i][j] == 'P')
+	{
+		game->map.player++;
+		game->map.player_x = j;
+		game->map.player_y = i;
+	}
+	else if (game->map.grid[i][j] == 'E')
+	{
+		game->map.exit++;
+		game->map.exit_x = j;
+		game->map.exit_y = i;
+	}
+	else if (game->map.grid[i][j] == 'C')
+		game->map.collectibles++;
 }
-
-// Add this at the end of validate_map function
-
-// static void	count_element(t_game *game, int i, int j)
-// {
-// 	if (game->map.grid[i][j] == 'P')
-// 	{
-// 		game->map.player++;
-// 		game->map.player_x = j;
-// 		game->map.player_y = i;
-// 	}
-// 	else if (game->map.grid[i][j] == 'E')
-// 		game->map.exit++;
-// 	else if (game->map.grid[i][j] == 'C')
-// 		game->map.collectibles++;
-// }
 
 static int	check_characters(t_game *game)
 {
@@ -111,46 +93,23 @@ void	flood_fill(char **map, int x, int y, int *count)
 	flood_fill(map, x, y - 1, count);
 }
 
-// int	validate_map(t_game *game)
-// {
-// 	if (!check_characters(game))
-// 	{
-// 		write(2, "Error\nInvalid map characters or missing elements\n", 49);
-// 		return (0);
-// 	}
-// 	if (!check_walls(game))
-// 	{
-// 		write(2, "Error\nMap must be surrounded by walls\n", 38);
-// 		return (0);
-// 	}
-// 	if (!check_path(game))
-// 	{
-// 		write(2, "Error\nInvalid path in map\n", 26);
-// 		return (0);
-// 	}
-// 	return (1);
-// }
-
-int validate_map(t_game *game)
+int	validate_map(t_game *game)
 {
-    if (!check_characters(game))
-    {
-        write(2, "Error\nInvalid map characters or missing elements\n", 49);
-        return (0);
-    }
-    if (!check_walls(game))
-    {
-        write(2, "Error\nMap must be surrounded by walls\n", 38);
-        return (0);
-    }
-    if (!check_path(game))
-    {
-        write(2, "Error\nInvalid path in map\n", 26);
-        return (0);
-    }
-
-    // Only make exit invisible after path validation is successful
-    game->map.grid[game->map.exit_y][game->map.exit_x] = '0';
-
-    return (1);
+	if (!check_characters(game))
+	{
+		write(2, "Error\nInvalid map characters or missing elements\n", 49);
+		return (0);
+	}
+	if (!check_walls(game))
+	{
+		write(2, "Error\nMap must be surrounded by walls\n", 38);
+		return (0);
+	}
+	if (!check_path(game))
+	{
+		write(2, "Error\nInvalid path in map\n", 26);
+		return (0);
+	}
+	game->map.grid[game->map.exit_y][game->map.exit_x] = '0';
+	return (1);
 }

@@ -6,15 +6,15 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:18:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/24 11:17:44 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/24 14:18:29 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-// # include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
-#include "/home/riad/MLX42/include/MLX42/MLX42.h"
+# include "/Users/riel-fas/MLX42/include/MLX42/MLX42.h"
+// #include "/home/riad/MLX42/include/MLX42/MLX42.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -96,6 +96,5 @@ char		**create_temp_map(t_game *game);
 int			check_path(t_game *game);
 void		flood_fill(char **map, int x, int y, int *count);
 int			map_ber(char *map_path);
-
 
 #endif
