@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:18:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/25 08:11:22 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/25 08:41:34 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,12 @@ char		*ft_strjoin_bonus(char *s1, char *s2);
 int			parse_map(t_game *game, char *map_path);
 int			validate_map(t_game *game);
 void		move_player(t_game *game, int dx, int dy);
+void		check_game_over(t_game *game, int new_x, int new_y);
+int			handle_move(t_game *game, int new_x, int new_y);
+void		update_game_state(t_game *game);
 void		handle_keypress(mlx_key_data_t keydata, void *param);
 void		render_map(t_game *game);
+int			handle_tile(t_game *game, int new_x, int new_y);
 void		init_game(t_game *game);
 void		update_render_map(t_game *game);
 void		free_game(t_game *game);

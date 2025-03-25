@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: riel-fas <riel-fas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:38:04 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/25 08:03:06 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/25 08:41:16 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	is_valid_move(t_game *game, int new_x, int new_y)
 	return (1);
 }
 
-static int	handle_tile(t_game *game, int new_x, int new_y)
+int	handle_tile(t_game *game, int new_x, int new_y)
 {
 	if (game->map.grid[new_y][new_x] == 'C')
 	{
@@ -55,28 +55,12 @@ void	move_player(t_game *game, int dx, int dy)
 	new_y = game->map.player_y + dy;
 	if (!is_valid_move(game, new_x, new_y))
 		return ;
+	check_game_over(game, new_x, new_y);
 	if (game->map.grid[new_y][new_x] == 'X')
-	{
-		ft_printf("Game Over!! Moves: %d\n", game->moves + 1);
-		mlx_close_window(game->mlx);
 		return ;
-	}
-	if (!handle_tile(game, new_x, new_y))
+	if (!handle_move(game, new_x, new_y))
 		return ;
-	game->map.grid[game->map.player_y][game->map.player_x] = '0';
-	if (game->map.player_x == game->map.exit_x
-		&& game->map.player_y == game->map.exit_y
-		&& game->map.collected == game->map.collectibles)
-		game->map.grid[game->map.exit_y][game->map.exit_x] = 'E';
-	game->map.player_x = new_x;
-	game->map.player_y = new_y;
-	if (!(new_x == game->map.exit_x && new_y == game->map.exit_y
-			&& game->map.collected == game->map.collectibles))
-		game->map.grid[new_y][new_x] = 'P';
-	game->moves++;
-	update_move_counter(game);
-	update_render_map(game);
-	ft_printf("Moves: %d\n", game->moves);
+	update_game_state(game);
 }
 
 void	handle_keypress(mlx_key_data_t keydata, void *param)

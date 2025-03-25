@@ -41,6 +41,7 @@ SRCS_BONUS				=	so_long_src_bonus/main_bonus.c \
 							so_long_src_bonus/map_render_bonus.c \
 							so_long_src_bonus/map_render_2_bonus.c \
 							so_long_src_bonus/key_press_bonus.c \
+							so_long_src_bonus/key_press_2_bonus.c \
 							so_long_src_bonus/textures_in_bonus.c \
 							so_long_src_bonus/map_valid_bonus.c \
 							so_long_src_bonus/map_valid_2_bonus.c \
