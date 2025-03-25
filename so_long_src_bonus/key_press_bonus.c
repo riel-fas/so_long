@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 14:38:04 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/24 18:36:55 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/25 08:03:06 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	move_player(t_game *game, int dx, int dy)
 	if (!is_valid_move(game, new_x, new_y))
 		return ;
 	if (game->map.grid[new_y][new_x] == 'X')
-    {
-        ft_printf("Game Over! You were caught by an enemy! Moves: %d\n", game->moves + 1);
-        mlx_close_window(game->mlx);
-        return;
-    }
+	{
+		ft_printf("Game Over!! Moves: %d\n", game->moves + 1);
+		mlx_close_window(game->mlx);
+		return ;
+	}
 	if (!handle_tile(game, new_x, new_y))
 		return ;
 	game->map.grid[game->map.player_y][game->map.player_x] = '0';
@@ -99,18 +99,14 @@ void	handle_keypress(mlx_key_data_t keydata, void *param)
 	}
 }
 
-// Add to so_long_src_bonus/key_press_bonus.c
-// Update in key_press_bonus.c
-void update_move_counter(t_game *game)
+void	update_move_counter(t_game *game)
 {
-    char *move_str;
-    char *display_str;
+	char	*move_str;
+	char	*display_str;
 
-    move_str = ft_itoa(game->moves);
-    display_str = ft_strjoin_bonus("MOVES : ", move_str);
-
-    mlx_delete_image(game->mlx, game->move_counter_img);
-    game->move_counter_img = mlx_put_string(game->mlx, display_str, 10, 10);
-
-    free(display_str);
+	move_str = ft_itoa(game->moves);
+	display_str = ft_strjoin_bonus("MOVES : ", move_str);
+	mlx_delete_image(game->mlx, game->move_counter_img);
+	game->move_counter_img = mlx_put_string(game->mlx, display_str, 10, 10);
+	free(display_str);
 }

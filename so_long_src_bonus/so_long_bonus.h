@@ -6,7 +6,7 @@
 /*   By: riel-fas <riel-fas@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:18:36 by riel-fas          #+#    #+#             */
-/*   Updated: 2025/03/24 18:35:43 by riel-fas         ###   ########.fr       */
+/*   Updated: 2025/03/25 07:59:10 by riel-fas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_game
 	int				collectible_count;
 	int				exit_count;
 	int				exit_instance;
-	mlx_image_t 	*move_counter_img;
+	mlx_image_t		*move_counter_img;
 }		t_game;
 
 void		update_position_and_moves(t_game *game, int new_x, int new_y);
@@ -100,7 +100,6 @@ char		**create_temp_map(t_game *game);
 int			check_path(t_game *game);
 void		flood_fill(char **map, int x, int y, int *count);
 int			map_ber(char *map_path);
-void update_move_counter(t_game *game);
-
+void		update_move_counter(t_game *game);
 
 #endif
